@@ -1,11 +1,13 @@
 package com.surepay.reports.readers;
 
 import com.surepay.reports.beans.TransactionRecord;
+import com.surepay.reports.exceptions.JSONFileReadException;
 import com.surepay.reports.interfaces.IFileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,8 +17,9 @@ import org.json.simple.parser.ParseException;
 public class JSONFileReader implements IFileReader {
 
   @Override
-  public List<TransactionRecord> readFile(File file) {
+  public List<TransactionRecord> readFile(File file) throws JSONFileReadException {
     System.out.println("Inside JSONFileReader class");
+    List<TransactionRecord> transactionRecordList = new ArrayList<>();
     {
       //Creating a JSONParser object
       JSONParser jsonParser = new JSONParser();
@@ -24,28 +27,22 @@ public class JSONFileReader implements IFileReader {
         JSONArray array = (JSONArray) jsonParser.parse(new FileReader(file));
         for (Object object : array) {
           JSONObject jsonObject = (JSONObject) object;
+          String reference = (String) jsonObject.get("reference");
           String accountNumber = (String) jsonObject.get("accountNumber");
           String description = (String) jsonObject.get("description");
           Double startBalance = Double.parseDouble(jsonObject.get("startBalance").toString());
           Double mutation = (Double) jsonObject.get("mutation");
           Double endBalance = (Double) jsonObject.get("endBalance");
 
-          //Forming URL
-          System.out.println("Contents of the JSON are: ");
-          System.out.println("ID :" + accountNumber);
-          System.out.println("First name: " + description);
-          System.out.println("Last name: " + startBalance);
-          System.out.println("Date of birth: " + mutation);
-          System.out.println("Place of birth: " + endBalance);
-          System.out.println(" ");
+          TransactionRecord transactionRecord = new TransactionRecord(reference, accountNumber, description,
+              startBalance,  mutation, endBalance);
+          transactionRecordList.add(transactionRecord);
         }
 
-      } catch (FileNotFoundException e) {
+      } catch (IOException | ParseException e) {
         e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (ParseException e) {
-        e.printStackTrace();
+      } catch (Exception e){
+        throw new JSONFileReadException("Exception while reading the json file" + file);
       }
     }
     return null;

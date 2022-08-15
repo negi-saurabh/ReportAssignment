@@ -8,7 +8,11 @@ public class UniqueTransactionReferencesValidationRule implements IValidationRul
 
   @Override
   public boolean isValid(TransactionRecord record) {
-    return false;
+    if(record.getEndBalance() == record.getStartBalance()+record.getMutation()){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   public String getReason() {

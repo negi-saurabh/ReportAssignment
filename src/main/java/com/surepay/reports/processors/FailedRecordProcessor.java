@@ -5,6 +5,7 @@ import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.interfaces.IReporter;
 import com.surepay.reports.interfaces.IValidationRule;
 import com.surepay.reports.reportformats.ReportAsExcel;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class FailedRecordProcessor implements IProcessor {
   }
 
   @Override
-  public void generateReport(String path) {
-    new ReportAsExcel().generateReport(failedRecords, path);
+  public void generateReport(String path) throws IOException {
+    reporter.generateReport(failedRecords, path);
   }
 }

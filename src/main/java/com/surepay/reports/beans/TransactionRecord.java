@@ -6,9 +6,9 @@ public class TransactionRecord {
   private String reference;
   private String accountNumber;
   private String description;
-  private BigDecimal startBalance;
-  private BigDecimal mutation;
-  private BigDecimal endBalance;
+  private Double startBalance;
+  private Double mutation;
+  private Double endBalance;
 
   public String getReference() {
     return reference;
@@ -34,32 +34,32 @@ public class TransactionRecord {
     this.description = description;
   }
 
-  public BigDecimal getStartBalance() {
+  public Double getStartBalance() {
     return startBalance;
   }
 
-  public void setStartBalance(BigDecimal startBalance) {
+  public void setStartBalance(Double startBalance) {
     this.startBalance = startBalance;
   }
 
-  public BigDecimal getMutation() {
+  public Double getMutation() {
     return mutation;
   }
 
-  public void setMutation(BigDecimal mutation) {
+  public void setMutation(Double mutation) {
     this.mutation = mutation;
   }
 
-  public BigDecimal getEndBalance() {
+  public Double getEndBalance() {
     return endBalance;
   }
 
-  public void setEndBalance(BigDecimal endBalance) {
+  public void setEndBalance(Double endBalance) {
     this.endBalance = endBalance;
   }
 
   public TransactionRecord(String reference, String accountNumber, String description,
-      BigDecimal startBalance, BigDecimal mutation, BigDecimal endBalance) {
+      Double startBalance, Double mutation, Double endBalance) {
     this.reference = reference;
     this.accountNumber = accountNumber;
     this.description = description;

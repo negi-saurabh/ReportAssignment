@@ -11,6 +11,6 @@ public class ReportAsJSON implements IReporter {
   }
   @Override
   public void generateReport(Map<TransactionRecord, String> failedRecords, String path) {
-
+        // write implementation
   }
 }
