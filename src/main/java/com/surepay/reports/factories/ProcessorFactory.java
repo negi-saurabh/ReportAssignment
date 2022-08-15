@@ -9,15 +9,13 @@ import java.util.List;
 
 public class ProcessorFactory {
 
-
   public static IProcessor getProcessor(String proc,
       List<TransactionRecord> allCollectedRecords, IReporter reporter,
       List<IValidationRule> validatorsList) {
     IProcessor processor = null;
     switch (proc) {
       case "BASIC_PROCESSOR" :
-        processor = new FailedRecordProcessor(allCollectedRecords,  reporter,
-             validatorsList);
+        processor = new FailedRecordProcessor(allCollectedRecords,  reporter, validatorsList);
         break;
 //      case default:
 //        break;
