@@ -1,6 +1,6 @@
-package com.surepay.reports.classes;
+package com.surepay.reports.readers;
 
-import com.surepay.reports.TransactionRecord;
+import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.interfaces.IFileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,14 +20,10 @@ public class JSONFileReader implements IFileReader {
     {
       //Creating a JSONParser object
       JSONParser jsonParser = new JSONParser();
-      //JSONDeserializer<Transaction> deserializer = new JSONDeserializer<Transaction>();
-
       try {
-        // Read file into a string
         JSONArray array = (JSONArray) jsonParser.parse(new FileReader(file));
-
-        for (Object o : array) {
-          JSONObject jsonObject = (JSONObject) o;
+        for (Object object : array) {
+          JSONObject jsonObject = (JSONObject) object;
           String accountNumber = (String) jsonObject.get("accountNumber");
           String description = (String) jsonObject.get("description");
           Double startBalance = Double.parseDouble(jsonObject.get("startBalance").toString());

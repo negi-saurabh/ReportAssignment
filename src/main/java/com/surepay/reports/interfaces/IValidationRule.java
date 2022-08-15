@@ -1,6 +1,6 @@
 package com.surepay.reports.interfaces;
 
-import com.surepay.reports.TransactionRecord;
+import com.surepay.reports.beans.TransactionRecord;
 
 public interface IValidationRule {
 

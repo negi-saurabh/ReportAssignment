@@ -1,19 +1,19 @@
 package com.surepay.reports;
 
-import com.surepay.reports.classes.BalanceCheckValidation;
-import com.surepay.reports.classes.ReportAsExcel;
-import com.surepay.reports.classes.ReportAsJSON;
-import com.surepay.reports.classes.UniqueTransactionReferencesValidation;
+import com.surepay.reports.beans.TransactionRecord;
+import com.surepay.reports.exceptions.WrongFileExtensionException;
+import com.surepay.reports.factories.ProcessorFactory;
 import com.surepay.reports.factories.ReaderFactory;
-import com.surepay.reports.factories.ValidationFactory;
+import com.surepay.reports.factories.ReporterGeneratorFactory;
+import com.surepay.reports.factories.ValidatorFactory;
 import com.surepay.reports.interfaces.IFileReader;
-import com.surepay.reports.interfaces.IReport;
+import com.surepay.reports.interfaces.IProcessor;
+import com.surepay.reports.interfaces.IReporter;
 import com.surepay.reports.interfaces.IValidationRule;
-import com.surepay.reports.utilities.DataFilesReader;
 import java.io.File;
-import java.util.HashMap;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /*
  * Given a file with bank transaction records, create a validation service
@@ -22,43 +22,24 @@ import java.util.Map;
 
 public class ReportGeneratorService {
 
-  private static final String DATA_FILES_PATH = "./files";
+  private static final String DATA_FILE = "./files/records.csv";
+  private static final String REPORT_TYPE = "EXCEL";
 
   public static void main(String[] args) {
-    Map<TransactionRecord, String> failedRecords = new HashMap<>();
+
     try {
-      List<File> dataFiles = DataFilesReader.getFilesFromPath(DATA_FILES_PATH);
-      for (int i = 0; i < dataFiles.size() ; i++) {
-        File currentFile = dataFiles.get(i);
-        ReaderFactory readerFactory = new ReaderFactory();
-        IFileReader fileReader = readerFactory.readFile(currentFile);
-        List<TransactionRecord>  allRecords =  fileReader.readFile(currentFile);
-
-        for (int j = 0; j < allRecords.size(); j++) {
-          TransactionRecord currentRecord = allRecords.get(i);
-          IValidationRule rule1 = new BalanceCheckValidation();
-          IValidationRule rule2 = new UniqueTransactionReferencesValidation();
-          if(!rule1.isValid(currentRecord)){
-            failedRecords.put(currentRecord, "Wrong Balance");
-
-          }if(!rule2.isValid(currentRecord)){
-            failedRecords.put(currentRecord, "Wrong Transaction Reference");
-          }
-
-        }
-
-        new ReportAsExcel().generateReport(failedRecords);
-        new ReportAsJSON().generateReport(failedRecords);
-      }
-      // strategy pattern
-      // ReporterGenerator reporter = ReporterGenerator.getInstance().getGenerator();
-      //Report report = reporter.generateReport();
-     // Validators validator = ReporterGenerator.getInstance().getGenerator();
-     // Processor processRules = ProcessorFactory.getInstance().getProcessor(reporter);
-     // Report report = processRules.process();
-    }
-    catch (Exception e){
-      e.printStackTrace();
+        File file = new File(DATA_FILE);
+        IFileReader fileReader = ReaderFactory.getReader(file);
+        List<TransactionRecord> allRecords = fileReader.readFile(file);
+        IReporter reporter = ReporterGeneratorFactory.getGenerator(REPORT_TYPE);
+        List<IValidationRule> validatorsList = new ArrayList<>();
+        IValidationRule validator = ValidatorFactory.getValidator("UNIQUE_REF");
+        validatorsList.add(validator);
+        IProcessor processor = ProcessorFactory.getProcessor("BASIC_PROCESSOR", allRecords, reporter, validatorsList);
+        processor.process();
+        processor.generateReport(DATA_FILE);
+    } catch (WrongFileExtensionException | IOException ex) {
+      ex.printStackTrace();
     }
   }
 }

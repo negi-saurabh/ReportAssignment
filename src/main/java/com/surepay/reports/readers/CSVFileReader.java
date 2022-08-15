@@ -1,6 +1,6 @@
-package com.surepay.reports.classes;
+package com.surepay.reports.readers;
 
-import com.surepay.reports.TransactionRecord;
+import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.interfaces.IFileReader;
 import java.io.BufferedReader;
 import java.io.File;

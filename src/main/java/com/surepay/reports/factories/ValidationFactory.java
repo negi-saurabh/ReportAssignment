@@ -1,7 +1,7 @@
 package com.surepay.reports.factories;
 
-import com.surepay.reports.classes.BalanceCheckValidation;
-import com.surepay.reports.classes.UniqueTransactionReferencesValidation;
+import com.surepay.reports.validationrules.BalanceCheckValidation;
+import com.surepay.reports.validationrules.UniqueTransactionReferencesValidationRule;
 import com.surepay.reports.interfaces.IValidationRule;
 import java.io.File;
 
@@ -15,7 +15,7 @@ public class ValidationFactory {
     }
     else if(currentFile.getName().endsWith(".json"))
     {
-      return new UniqueTransactionReferencesValidation();
+      return new UniqueTransactionReferencesValidationRule();
     }
     else {
       throw new IllegalArgumentException("File has some issues  " + currentFile.getName());

@@ -1,4 +1,4 @@
-package com.surepay.reports;
+package com.surepay.reports.beans;
 
 import java.math.BigDecimal;
 
