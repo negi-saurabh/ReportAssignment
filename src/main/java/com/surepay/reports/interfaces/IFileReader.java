@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IFileReader {
 
-  List<TransactionRecord> readFile(File file) throws CSVFileReadException, JSONFileReadException;
+  List<TransactionRecord> readFile() throws CSVFileReadException, JSONFileReadException;
 
 }

@@ -1,7 +1,7 @@
 package com.surepay.reports.factories;
 
-import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.exceptions.WrongProcessorException;
+import com.surepay.reports.interfaces.IFileReader;
 import com.surepay.reports.interfaces.IProcessor;
 import com.surepay.reports.interfaces.IReporter;
 import com.surepay.reports.interfaces.IValidationRule;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProcessorFactory {
 
-  public static IProcessor getProcessor(String processorType, List<TransactionRecord> allCollectedRecords, IReporter reporter, List<IValidationRule> validatorsList)
+  public static IProcessor getProcessor(String processorType, IFileReader allCollectedRecords, IReporter reporter, List<IValidationRule> validatorsList)
       throws WrongProcessorException {
     IProcessor processor = null;
     switch (processorType) {

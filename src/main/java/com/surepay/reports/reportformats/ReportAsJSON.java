@@ -6,9 +6,6 @@ import java.util.Map;
 
 public class ReportAsJSON implements IReporter {
 
-  public ReportAsJSON(String savePath){
-
-  }
   @Override
   public void generateReport(Map<TransactionRecord, String> failedRecords, String path) {
         // write implementation

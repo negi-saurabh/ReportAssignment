@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVFileReader implements IFileReader {
-
+  private File file;
+  public CSVFileReader(File file){
+    this.file = file;
+  }
   @Override
-  public List<TransactionRecord> readFile(File file) throws CSVFileReadException {
+  public List<TransactionRecord> readFile() throws CSVFileReadException {
     List<TransactionRecord> transactionRecordList = new ArrayList<>();
     try {
       String line = "";
@@ -27,7 +30,7 @@ public class CSVFileReader implements IFileReader {
       }
     }
     catch (Exception e){
-      throw new CSVFileReadException("Exception while reading the csv file" + file);
+      throw new CSVFileReadException("Exception while reading the csv file: " + file + " " + e.getMessage());
     }
     return transactionRecordList;
   }

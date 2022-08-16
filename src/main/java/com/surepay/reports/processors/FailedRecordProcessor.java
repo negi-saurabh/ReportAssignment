@@ -1,5 +1,8 @@
 package com.surepay.reports.processors;
 
+import com.surepay.reports.exceptions.CSVFileReadException;
+import com.surepay.reports.exceptions.JSONFileReadException;
+import com.surepay.reports.interfaces.IFileReader;
 import com.surepay.reports.interfaces.IProcessor;
 import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.interfaces.IReporter;
@@ -13,20 +16,21 @@ import java.util.Map;
 public class FailedRecordProcessor implements IProcessor {
 
   Map<TransactionRecord, String> failedRecords = new HashMap<>();
-  List<TransactionRecord> allCollectedRecords;
+  IFileReader fileReader;
   IReporter reporter;
   List<IValidationRule> validatorsList;
 
-  public FailedRecordProcessor(List<TransactionRecord> allCollectedRecords, IReporter reporter, List<IValidationRule> validatorsList) {
-    this.allCollectedRecords = allCollectedRecords;
+  public FailedRecordProcessor(IFileReader fileReader, IReporter reporter, List<IValidationRule> validatorsList) {
+    this.fileReader = fileReader;
     this.reporter = reporter;
     this.validatorsList = validatorsList;
   }
 
   @Override
-  public void process() {
-    for (int i = 0; i < allCollectedRecords.size(); i++) {
-      TransactionRecord currentRecord = allCollectedRecords.get(i);
+  public void process() throws JSONFileReadException, CSVFileReadException {
+    List<TransactionRecord> allRecords = fileReader.readFile();
+    for (int i = 0; i < allRecords.size(); i++) {
+      TransactionRecord currentRecord = allRecords.get(i);
       for (int j = 0; j < validatorsList.size() ; j++) {
         IValidationRule rule = validatorsList.get(j);
         if(!rule.isValid(currentRecord)) {

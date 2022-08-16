@@ -19,6 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /*
  * Given a file with bank transaction records, create a validation service
@@ -27,6 +30,8 @@ import java.util.List;
 
 public class ReportGeneratorService {
 
+  private static final Logger logger = LogManager.getLogger(ReportGeneratorService.class);
+
   public static void main(String[] args) throws JSONFileReadException {
     List<String> listOfValidations = new ArrayList<>();
     listOfValidations.add(Constants.VALIDATION_UNIQUE_REF);
@@ -34,23 +39,27 @@ public class ReportGeneratorService {
 
     try {
       File file = new File(Constants.DATA_FILE);
-
+      logger.log(Level.INFO, "getting file reader based on provided file type");
       IFileReader fileReader = ReaderFactory.getReader(file);
-      List<TransactionRecord> allRecords = fileReader.readFile(file);
 
+
+      logger.log(Level.INFO, "getting reporter to get the format of output file");
       IReporter reporter = ReporterGeneratorFactory.getGenerator(Constants.REPORT_TYPE_CSV);
-      List<IValidationRule> validatorsList = new ArrayList<>();
 
+      logger.log(Level.INFO, "getting all the validations that are need to be applied");
+      List<IValidationRule> validatorsList = new ArrayList<>();
       for (int i = 0; i < listOfValidations.size(); i++) {
         IValidationRule validator = ValidatorFactory.getValidator(listOfValidations.get(i));
         validatorsList.add(validator);
       }
 
-      IProcessor processor = ProcessorFactory.getProcessor(Constants.FAILED_RECORD_PROCESSOR, allRecords, reporter, validatorsList);
+      logger.log(Level.INFO, Constants.FAILED_RECORD_PROCESSOR+ "has been chosen as processor");
+      IProcessor processor = ProcessorFactory.getProcessor(Constants.FAILED_RECORD_PROCESSOR, fileReader, reporter, validatorsList);
       processor.process();
       processor.generateReport(Constants.DATA_FILE);
 
     } catch (IOException | WrongFileExtensionException | WrongOutputReportFormatException | WrongProcessorException | CSVFileReadException ex) {
+          logger.log(Level.ERROR, "Exception", ex.getMessage());
           ex.printStackTrace();
     }
   }

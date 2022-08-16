@@ -16,8 +16,14 @@ import org.json.simple.parser.ParseException;
 
 public class JSONFileReader implements IFileReader {
 
+  private File file;
+
+  public JSONFileReader(File file){
+    this.file = file;
+  }
+
   @Override
-  public List<TransactionRecord> readFile(File file) throws JSONFileReadException {
+  public List<TransactionRecord> readFile() throws JSONFileReadException {
     System.out.println("Inside JSONFileReader class");
     List<TransactionRecord> transactionRecordList = new ArrayList<>();
     {

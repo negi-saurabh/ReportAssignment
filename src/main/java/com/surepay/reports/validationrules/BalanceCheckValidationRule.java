@@ -7,16 +7,16 @@ import java.util.List;
 
 public class BalanceCheckValidationRule implements IValidationRule {
 
-  private String reasonMessage = "The Final Balance is wrong";
-  private List<String> referenceList = new ArrayList<>();
+
+  private String reasonMessage = "Wrong Transaction Reference";
+
 
   @Override
   public boolean isValid(TransactionRecord record) {
-    if(referenceList.contains(record.getReference())){
-      return false;
-    }else{
-      referenceList.add(record.getReference());
+    if(record.getEndBalance() == record.getStartBalance()+record.getMutation()){
       return true;
+    }else{
+      return false;
     }
   }
 

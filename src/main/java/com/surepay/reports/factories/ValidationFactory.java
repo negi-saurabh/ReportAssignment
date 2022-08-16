@@ -1,6 +1,6 @@
 package com.surepay.reports.factories;
 
-import com.surepay.reports.validationrules.BalanceCheckValidation;
+import com.surepay.reports.validationrules.BalanceCheckValidationRule;
 import com.surepay.reports.validationrules.UniqueTransactionReferencesValidationRule;
 import com.surepay.reports.interfaces.IValidationRule;
 import java.io.File;
@@ -11,7 +11,7 @@ public class ValidationFactory {
     if (currentFile == null)
       return null;
     else if(currentFile.getName().endsWith(".csv")) {
-      return new BalanceCheckValidation();
+      return new BalanceCheckValidationRule();
     }
     else if(currentFile.getName().endsWith(".json"))
     {
