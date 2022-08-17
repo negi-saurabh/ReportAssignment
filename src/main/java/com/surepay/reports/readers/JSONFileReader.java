@@ -9,13 +9,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class JSONFileReader implements IFileReader {
-
+  private static final Logger logger = LogManager.getLogger(JSONFileReader.class);
   private File file;
 
   public JSONFileReader(File file){
@@ -24,7 +27,7 @@ public class JSONFileReader implements IFileReader {
 
   @Override
   public List<TransactionRecord> readFile() throws JSONFileReadException {
-    System.out.println("Inside JSONFileReader class");
+    logger.log(Level.INFO, "Reading input JSON file");
     List<TransactionRecord> transactionRecordList = new ArrayList<>();
     {
       //Creating a JSONParser object
@@ -48,7 +51,7 @@ public class JSONFileReader implements IFileReader {
       } catch (IOException | ParseException e) {
         e.printStackTrace();
       } catch (Exception e){
-        throw new JSONFileReadException("Exception while reading the json file" + file);
+        throw new JSONFileReadException("Exception while reading the json file " + file);
       }
     }
     return transactionRecordList;

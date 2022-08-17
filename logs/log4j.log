@@ -1,0 +1,5 @@
+[INFO ] 2022-08-17 17:17:06.589 [main] ReportGeneratorService - Hello World!
+[INFO ] 2022-08-17 17:17:06.595 [main] ReportGeneratorService - getting file reader based on provided file type
+[INFO ] 2022-08-17 17:17:06.598 [main] ReportGeneratorService - getting reporter to get the format of output file
+[INFO ] 2022-08-17 17:17:06.601 [main] ReportGeneratorService - getting all the validations that are need to be applied
+[INFO ] 2022-08-17 17:17:06.605 [main] ReportGeneratorService - FAILED_RECORD_PROCESSORhas been chosen as processor

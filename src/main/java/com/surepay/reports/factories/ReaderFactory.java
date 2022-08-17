@@ -6,13 +6,16 @@ import com.surepay.reports.readers.CSVFileReader;
 import com.surepay.reports.readers.JSONFileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-
-//can make static factory
 public class ReaderFactory {
+  private static final Logger logger = LogManager.getLogger(ReaderFactory.class);
 
   public static IFileReader getReader(File currentFile)
       throws WrongFileExtensionException, FileNotFoundException {
+    logger.log(Level.INFO, "Inside ReaderFactory");
     if (currentFile != null) {
       String fileExtension = currentFile.getName().toLowerCase().split("\\.")[1];
       switch (fileExtension){

@@ -1,17 +1,25 @@
 package com.surepay.reports.factories;
 
+import com.surepay.reports.ReportGeneratorService;
 import com.surepay.reports.exceptions.WrongProcessorException;
 import com.surepay.reports.interfaces.IFileReader;
 import com.surepay.reports.interfaces.IProcessor;
 import com.surepay.reports.interfaces.IReporter;
 import com.surepay.reports.interfaces.IValidationRule;
 import com.surepay.reports.processors.FailedRecordProcessor;
+import com.surepay.reports.utilities.Constants;
 import java.util.List;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ProcessorFactory {
+  private static final Logger logger = LogManager.getLogger(ProcessorFactory.class);
 
   public static IProcessor getProcessor(String processorType, IFileReader allCollectedRecords, IReporter reporter, List<IValidationRule> validatorsList)
       throws WrongProcessorException {
+
+    logger.log(Level.INFO, "Inside ProcessorFactory");
     IProcessor processor = null;
     // we can change method definition and instead of passing 4 we can pass 1 parameter
     switch (processorType) {

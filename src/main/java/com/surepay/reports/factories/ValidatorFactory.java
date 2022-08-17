@@ -21,8 +21,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ValidatorFactory {
+  private static final Logger logger = LogManager.getLogger(ValidatorFactory.class);
 
   public static IValidationRule getValidator(String rule) {
+    logger.log(Level.INFO, "Inside ValidatorFactory");
     IValidationRule validationRule = null;
     switch (rule) {
       case "UNIQUE_REF" :
@@ -34,6 +36,4 @@ public class ValidatorFactory {
     }
     return validationRule;
   }
-
-
 }

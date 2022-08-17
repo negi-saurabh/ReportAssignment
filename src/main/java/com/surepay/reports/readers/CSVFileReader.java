@@ -3,14 +3,18 @@ package com.surepay.reports.readers;
 import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.exceptions.CSVFileReadException;
 import com.surepay.reports.interfaces.IFileReader;
+import com.surepay.reports.processors.FailedRecordProcessor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CSVFileReader implements IFileReader {
-
+  private static final Logger logger = LogManager.getLogger(CSVFileReader.class);
   private File file;
   public CSVFileReader(File file){
     this.file = file;
@@ -18,6 +22,7 @@ public class CSVFileReader implements IFileReader {
 
   @Override
   public List<TransactionRecord> readFile() throws CSVFileReadException {
+    logger.log(Level.INFO, "Reading input CSV file");
     List<TransactionRecord> transactionRecordList = new ArrayList<>();
     try {
       String line = "";

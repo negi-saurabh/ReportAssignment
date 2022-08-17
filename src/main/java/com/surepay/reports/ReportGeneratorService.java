@@ -33,20 +33,22 @@ public class ReportGeneratorService {
 
     try {
       File file = new File(Constants.JSON_DATA_FILE);
-      logger.log(Level.INFO, "getting file reader based on provided file type");
+      logger.log(Level.INFO, "STARTED PROCESSING OF THE FILE:" + file.getName());
       IFileReader fileReader = ReaderFactory.getReader(file);
+      logger.log(Level.INFO, "Got " +fileReader.getClass() + " based on provided file type");
 
-      logger.log(Level.INFO, "getting reporter to get the format of output file");
       IReporter reporter = ReporterGeneratorFactory.getGenerator(Constants.REPORT_TYPE_CSV, Constants.OUTPUT_FILE_PATH);
+      logger.log(Level.INFO, "Got " +reporter.getClass() + " based on output file format provided");
 
-      logger.log(Level.INFO, "getting all the validations that are need to be applied");
+      logger.log(Level.INFO, "Getting all the validations that are need to be applied");
       List<IValidationRule> validatorsList = new ArrayList<>();
+
       for (int i = 0; i < listOfValidations.size(); i++) {
         IValidationRule validator = ValidatorFactory.getValidator(listOfValidations.get(i));
         validatorsList.add(validator);
       }
 
-      logger.log(Level.INFO, Constants.FAILED_RECORD_PROCESSOR+ "has been chosen as processor");
+      logger.log(Level.INFO, Constants.FAILED_RECORD_PROCESSOR+ " has been chosen as processor");
       IProcessor processor = ProcessorFactory.getProcessor(Constants.FAILED_RECORD_PROCESSOR, fileReader, reporter, validatorsList);
       processor.process();
       processor.generateReport();
