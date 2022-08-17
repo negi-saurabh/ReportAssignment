@@ -37,8 +37,8 @@ public class JSONFileReader implements IFileReader {
           String accountNumber = (String) jsonObject.get("accountNumber");
           String description = (String) jsonObject.get("description");
           Double startBalance = Double.parseDouble(jsonObject.get("startBalance").toString());
-          Double mutation = (Double) jsonObject.get("mutation");
-          Double endBalance = (Double) jsonObject.get("endBalance");
+          Double mutation = Double.parseDouble(jsonObject.get("mutation").toString());
+          Double endBalance = Double.parseDouble(jsonObject.get("endBalance").toString());
 
           TransactionRecord transactionRecord = new TransactionRecord(reference, accountNumber, description,
               startBalance,  mutation, endBalance);
@@ -51,6 +51,6 @@ public class JSONFileReader implements IFileReader {
         throw new JSONFileReadException("Exception while reading the json file" + file);
       }
     }
-    return null;
+    return transactionRecordList;
   }
 }

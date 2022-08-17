@@ -2,7 +2,9 @@ package com.surepay.reports.utilities;
 
 public class Constants {
   //path of the input data file
-  public static final String DATA_FILE = "./files/records.csv";
+  public static final String CSV_DATA_FILE = "./input/records.csv";
+  public static final String JSON_DATA_FILE = "./input/records.json";
+  public static final String OUTPUT_FILE_PATH = "./output";
 
   //type of output reports
   public static final String REPORT_TYPE_CSV = "CSV";

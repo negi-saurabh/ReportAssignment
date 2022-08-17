@@ -13,6 +13,7 @@ public class ProcessorFactory {
   public static IProcessor getProcessor(String processorType, IFileReader allCollectedRecords, IReporter reporter, List<IValidationRule> validatorsList)
       throws WrongProcessorException {
     IProcessor processor = null;
+    // we can change method definition and instead of passing 4 we can pass 1 parameter
     switch (processorType) {
       case "FAILED_RECORD_PROCESSOR" :
         processor = new FailedRecordProcessor(allCollectedRecords,  reporter, validatorsList);

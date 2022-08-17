@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVFileReader implements IFileReader {
+
   private File file;
   public CSVFileReader(File file){
     this.file = file;
   }
+
   @Override
   public List<TransactionRecord> readFile() throws CSVFileReadException {
     List<TransactionRecord> transactionRecordList = new ArrayList<>();
@@ -21,6 +23,8 @@ public class CSVFileReader implements IFileReader {
       String line = "";
       String splitBy = ",";
       BufferedReader br = new BufferedReader(new FileReader(file));
+      // skipping headings
+      br.readLine();
       while ((line = br.readLine()) != null)
       {
         String[] transaction = line.split(splitBy);

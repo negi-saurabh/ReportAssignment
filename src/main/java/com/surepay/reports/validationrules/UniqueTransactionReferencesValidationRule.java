@@ -2,23 +2,23 @@ package com.surepay.reports.validationrules;
 
 import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.interfaces.IValidationRule;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UniqueTransactionReferencesValidationRule implements IValidationRule {
-  private String reasonMessage = "The Final Balance is wrong";
-  private List<String> referenceList = new ArrayList<>();
+  private final String reasonMessage = "Wrong Transaction Reference";
+  private Set<String> referenceSet = new HashSet<>();
 
   @Override
   public boolean isValid(TransactionRecord record) {
-    if(referenceList.contains(record.getReference())){
+    if(!referenceSet.add(record.getReference())){
       return false;
     }else{
-      referenceList.add(record.getReference());
       return true;
     }
   }
 
+  @Override
   public String getReason() {
     return reasonMessage;
   }

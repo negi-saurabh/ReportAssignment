@@ -8,6 +8,6 @@ public interface IProcessor {
 
   public void process() throws JSONFileReadException, CSVFileReadException;
 
-  public void generateReport(String path) throws IOException;
+  public void generateReport() throws IOException;
 
 }

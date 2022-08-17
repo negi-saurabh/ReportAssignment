@@ -1,6 +1,5 @@
 package com.surepay.reports;
 
-import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.exceptions.CSVFileReadException;
 import com.surepay.reports.exceptions.JSONFileReadException;
 import com.surepay.reports.exceptions.WrongFileExtensionException;
@@ -23,11 +22,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/*
- * Given a file with bank transaction records, create a validation service
- * that reads the file and gives a report with the invalid records.
- */
-
 public class ReportGeneratorService {
 
   private static final Logger logger = LogManager.getLogger(ReportGeneratorService.class);
@@ -38,13 +32,12 @@ public class ReportGeneratorService {
     listOfValidations.add(Constants.VALIDATION_BALANCE_CHECK);
 
     try {
-      File file = new File(Constants.DATA_FILE);
+      File file = new File(Constants.JSON_DATA_FILE);
       logger.log(Level.INFO, "getting file reader based on provided file type");
       IFileReader fileReader = ReaderFactory.getReader(file);
 
-
       logger.log(Level.INFO, "getting reporter to get the format of output file");
-      IReporter reporter = ReporterGeneratorFactory.getGenerator(Constants.REPORT_TYPE_CSV);
+      IReporter reporter = ReporterGeneratorFactory.getGenerator(Constants.REPORT_TYPE_CSV, Constants.OUTPUT_FILE_PATH);
 
       logger.log(Level.INFO, "getting all the validations that are need to be applied");
       List<IValidationRule> validatorsList = new ArrayList<>();
@@ -56,11 +49,12 @@ public class ReportGeneratorService {
       logger.log(Level.INFO, Constants.FAILED_RECORD_PROCESSOR+ "has been chosen as processor");
       IProcessor processor = ProcessorFactory.getProcessor(Constants.FAILED_RECORD_PROCESSOR, fileReader, reporter, validatorsList);
       processor.process();
-      processor.generateReport(Constants.DATA_FILE);
+      processor.generateReport();
 
+      // logger success
     } catch (IOException | WrongFileExtensionException | WrongOutputReportFormatException | WrongProcessorException | CSVFileReadException ex) {
-          logger.log(Level.ERROR, "Exception", ex.getMessage());
-          ex.printStackTrace();
+      logger.log(Level.ERROR, "Exception", ex.getMessage());
+      ex.printStackTrace();
     }
   }
 }
