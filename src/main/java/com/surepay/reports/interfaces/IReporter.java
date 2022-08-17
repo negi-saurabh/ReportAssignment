@@ -1,7 +1,6 @@
 package com.surepay.reports.interfaces;
 
 import com.surepay.reports.beans.TransactionRecord;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 

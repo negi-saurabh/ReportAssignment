@@ -4,7 +4,6 @@ import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.exceptions.JSONFileReadException;
 import com.surepay.reports.interfaces.IFileReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +15,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+/*
+ * Reader for a JSON file
+ */
 
 public class JSONFileReader implements IFileReader {
   private static final Logger logger = LogManager.getLogger(JSONFileReader.class);

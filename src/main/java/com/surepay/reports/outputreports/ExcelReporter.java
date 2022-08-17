@@ -1,7 +1,6 @@
 package com.surepay.reports.outputreports;
 
 import com.surepay.reports.beans.TransactionRecord;
-import com.surepay.reports.factories.ValidatorFactory;
 import com.surepay.reports.interfaces.IReporter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,6 +13,11 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+/*
+ * Creates output report in as an Excel
+ * filled with failed records
+ */
 
 public class ExcelReporter implements IReporter {
   private static final Logger logger = LogManager.getLogger(ExcelReporter.class);

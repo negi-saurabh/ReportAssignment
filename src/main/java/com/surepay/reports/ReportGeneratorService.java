@@ -22,6 +22,11 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/*
+ * Contains main method where we input data file and generates
+ * an output file consisting failed records
+ */
+
 public class ReportGeneratorService {
 
   private static final Logger logger = LogManager.getLogger(ReportGeneratorService.class);

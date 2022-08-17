@@ -3,7 +3,6 @@ package com.surepay.reports.readers;
 import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.exceptions.CSVFileReadException;
 import com.surepay.reports.interfaces.IFileReader;
-import com.surepay.reports.processors.FailedRecordProcessor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,6 +11,10 @@ import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+/*
+ * Reader for a CSV file
+ */
 
 public class CSVFileReader implements IFileReader {
   private static final Logger logger = LogManager.getLogger(CSVFileReader.class);

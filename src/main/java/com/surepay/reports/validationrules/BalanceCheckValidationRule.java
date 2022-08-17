@@ -2,22 +2,25 @@ package com.surepay.reports.validationrules;
 
 import com.surepay.reports.beans.TransactionRecord;
 import com.surepay.reports.interfaces.IValidationRule;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
+
+/*
+ * Checks if the end value after transaction is correct
+ * Based on the start value and the mutation involved
+ */
 
 public class BalanceCheckValidationRule implements IValidationRule {
   private final String reasonMessage = "The Final Balance is wrong";
 
   @Override
   public boolean isValid(TransactionRecord record) {
-    if(getInFormat(record.getEndBalance()).equals(getInFormat(record.getStartBalance()+record.getMutation()))){
+    if(getFormat(record.getEndBalance()).equals(getFormat(record.getStartBalance()+record.getMutation()))){
       return true;
     }else{
       return false;
     }
   }
 
-  private String getInFormat(Double amount) {
+  private String getFormat(Double amount) {
     return String.format("%.2f",amount);
   }
 

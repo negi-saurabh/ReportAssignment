@@ -8,6 +8,11 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
+/*
+ * Returns a Output Report format based on reportType Input
+ */
+
 public class ReporterGeneratorFactory {
   private static final Logger logger = LogManager.getLogger(ReporterGeneratorFactory.class);
 

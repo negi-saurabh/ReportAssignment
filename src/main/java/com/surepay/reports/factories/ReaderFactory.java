@@ -10,6 +10,10 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/*
+ * Returns a Reader based on Input file
+ */
+
 public class ReaderFactory {
   private static final Logger logger = LogManager.getLogger(ReaderFactory.class);
 
