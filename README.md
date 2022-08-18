@@ -6,10 +6,13 @@ ReportAssignment is a maven Project aimed at creating a validation service that 
 ### Folder structure
 
 #### SRC
-contains java main and test classes. I have tried to create an extensible code. So that it can be easier to maintain, extend and test. Some code is left for implemnetion. Written unit test cases only for business logic due to time constraints
+contains java main and test classes. I have tried to create an extensible code So that it can be easier to maintain, extend and test. 
+Some code is left for implemnetion. 
+Written unit test cases only for business logic due to time constraints
 
 ##### ReportGeneratorService 
-It is the main starter class which contains main method which takes input data file and generates an output file consisting failed records. Output file has three columns consisitng of the failed transaction's reference, description and reasin for its failure.
+It is the main starter class which contains main method which takes input data file and generates an output file consisting failed records. 
+Output file has three columns consisitng of the failed transaction's reference, description and reasin for its failure.
 
 ##### Validations
 1) All transaction references should be unique
