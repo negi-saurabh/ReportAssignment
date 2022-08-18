@@ -21,7 +21,7 @@ Output file has three columns consisitng of the failed transaction's reference, 
 * If both validations fails, for now, the reason will just show the last failed validation which is "The Final Balance is wrong".
 
 #### INPUT
-Input folder needs to have the input data files.
+Input folder contains input data files.
 
 #### OUTPUT
 Output folder gets the final output file. Currently, we can get only excel file as output report. 
