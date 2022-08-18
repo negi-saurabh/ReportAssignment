@@ -28,4 +28,9 @@ public class UniqueTransactionReferencesValidationRule implements IValidationRul
   public String getReason() {
     return reasonMessage;
   }
+
+  // have added this file for unit testing
+  public void addRecord(TransactionRecord record){
+    referenceSet.add(record.getReference());
+  }
 }

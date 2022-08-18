@@ -23,7 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /*
- * Contains main method where we input data file and generates
+ * Contains main method which takes input data file and generates
  * an output file consisting failed records
  */
 
