@@ -1,0 +1,10 @@
+com.surepay.reports
+com.surepay.reports.beans
+com.surepay.reports.exceptions
+com.surepay.reports.factories
+com.surepay.reports.interfaces
+com.surepay.reports.outputreports
+com.surepay.reports.processors
+com.surepay.reports.readers
+com.surepay.reports.utilities
+com.surepay.reports.validationrules
