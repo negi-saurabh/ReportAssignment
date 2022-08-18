@@ -5,7 +5,7 @@ ReportAssignment is a maven Project aimed at creating a validation service that 
 
 ### Folder structure
 
-#### src
+#### SRC
 contains java main and test classes. I have tried to create an extensible code. So that it can be easier to maintain, extend and test. Some code is left for implemnetion. Written unit test cases only for business logic due to time constraints
 
 ##### ReportGeneratorService 
@@ -17,13 +17,13 @@ It is the main starter class which contains main method which takes input data f
 
 * If both validations fails, for now, the reason will just show the last failed validation which is "The Final Balance is wrong".
 
-#### input
+#### INPUT
 Input folder needs to have the input data files.
 
-#### output
+#### OUTPUT
 Output folder gets the final output file. Currently, we can get only excel file as output report. 
 
-#### logs
+#### LOGS
 Logs folder contains the generated logs. Have used Log4j2 for logging. Due to time constraints, I have not put logger in each and every class.
 
 
